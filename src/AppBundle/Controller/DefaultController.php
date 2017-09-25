@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class DefaultController extends Controller
+{
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function indexAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('default/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
+    /**
+     * @Route("/lucky/number/{max}", name="lucky_number")
+     */
+    public function numberAction($max)
+    {
+        // génération d'un nombre aléatoire
+        
+        $number = mt_rand(0, $max);
+        //ici on va chercher le template et on lui transmet la variable
+        return $this->render('AppBundle:Default:number.html.twig', array(
+            // pour fournir des variables au template
+            // a gauche, le nom qui sera utilisé dans le template
+            // a droite, la valeur
+            'number' => $number
+        ));
+    }
+    // [...]
+}
+
