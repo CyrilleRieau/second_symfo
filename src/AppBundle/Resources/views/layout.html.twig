@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {% include 'AppBundle::header.html.twig' %}
+<div id ="centre">    
+{% block centre  %}
+<div id="menu">
+    {% block menu %}
+        {% include 'AppBundle::menu.html.twig' %}
+    {% endblock menu %}
+</div>
+<div id="content">    
+    {% block content %}
+    {% endblock content %}
+</div>
+{% endblock centre %}
+</div>
+<div id="footer"> 
+    {% block footer %}
+        {% include 'AppBundle::footer.html.twig' %}
+    {% endblock footer %}
+</div>    
+{% endblock body %}
