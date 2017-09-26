@@ -1,0 +1,9 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {{numero.content}} / {{numero.createdAt|date('Y-m-d')}} / {{numero.updatedAt|date('Y-m-d') }} / {{numero.likes}} / {{numero.isEnabled|number_format}}
+
+{{ form_start(form_delete) }}
+{{ form_widget(form_delete) }}
+{{ form_end(form_delete) }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<ul>
+    {% for table in tables %}
+        <li> <a href='showone/{{table.id}}'>
+        {{table.id}} / 
+        {{table.title}} </a></li>           
+    {% endfor %}
+</ul>
+{% endblock %}
