@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * FirstEntity
@@ -217,5 +218,82 @@ class FirstEntity
     {
         return $this->likes;
     }
-}
+    /**
+         * @ORM\ManyToOne(targetEntity="Category", inversedBy="articles")
+         * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+         */
+         private $category;
+        
 
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return FirstEntity
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+        /**
+        * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles", cascade={"persist"})
+        * @ORM\JoinTable(name="article_tags")
+        */
+       
+        private $tags;
+        
+        public function __construct()
+        {
+            $this->tags = new ArrayCollection();
+        }
+        
+    
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return FirstEntity
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+}

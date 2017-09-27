@@ -2,8 +2,13 @@
 
 {% block body %}
     {{numero.content}} / {{numero.createdAt|date('Y-m-d')}} / {{numero.updatedAt|date('Y-m-d') }} / {{numero.likes}} / {{numero.isEnabled|number_format}}
-
+<div>
 {{ form_start(form_delete) }}
-{{ form_widget(form_delete) }}
+</div>
+<div>
+{{form_widget(form_delete) }}
+</div>
+<div>
 {{ form_end(form_delete) }}
+</div>
 {% endblock %}
