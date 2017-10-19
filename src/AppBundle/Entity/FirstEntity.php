@@ -4,6 +4,9 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * FirstEntity
@@ -64,6 +67,27 @@ class FirstEntity
      */
     private $likes;
 
+    /**
+    * @const path to cover directory
+    */
+    const COVER_DIRECTORY = '/uploads/cover/';
+    
+        // ...
+    
+        /**
+         * @var string
+         *
+         * @ORM\Column(type="string")
+         */
+        private $cover;
+    
+        /**
+         * @var File
+         *
+         * @Assert\NotBlank(message="S'il vous plait, ajoutez une image de couverture")
+         * @Assert\File(mimeTypes={ "image/jpeg","image/png"  })
+         */
+        private $file;
 
     /**
      * Get id
@@ -295,5 +319,75 @@ class FirstEntity
     public function getTags()
     {
         return $this->tags;
+    }
+      /**
+     * Get Cover
+     *
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * Set cover
+     *
+     * @param string $cover
+     *
+     * @return Article
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+    
+    /**
+     * On part de notre class et on remonte jusqu'au dossier web
+     * Chemin physique sur le serveur du dossier d'upload
+     *
+     * @return string
+     */
+    public function getCoverUploadDirectory()
+    {
+        return __DIR__ . "/../../../web" . self::COVER_DIRECTORY;
+    }
+
+    /**
+     * Chemin physique de l'image sur le serveur  
+     * 
+     * @return string
+     */
+    public function getCoverAbsolutePath()
+    {
+        return $this->getCoverUploadDirectory() . $this->getCover();
+    }
+
+    /**
+     * Chemin de l'image via l'URL, servira dans pour l'affichage dans les templates twig
+     *
+     * @return string
+     */
+    public function getCoverWebPath()
+    {
+        return self::COVER_DIRECTORY . $this->getCover();
     }
 }

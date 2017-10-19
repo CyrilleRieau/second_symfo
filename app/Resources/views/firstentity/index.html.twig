@@ -13,6 +13,7 @@
                 <th>Updatedat</th>
                 <th>Isenabled</th>
                 <th>Likes</th>
+                <th>Images</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{% if firstEntity.updatedAt %}{{ firstEntity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if firstEntity.isEnabled %}Yes{% else %}No{% endif %}</td>
                 <td>{{ firstEntity.likes }}</td>
+                <td><img src="{{ asset(firstEntity.getCoverWebPath) }}"/></td>
                 <td>
                     <ul>
                         <li>

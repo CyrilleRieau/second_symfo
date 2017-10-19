@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\FirstEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\ProductType;
 
 /**
  * Firstentity controller.
@@ -44,10 +46,24 @@ class FirstEntityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $file contient l'image nouvellement uploadée
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $firstEntity->getFile();
+            
+            // Génération d'un nom unique pour l'image (pour éviter les collisions à l'enregistrement)
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            
+            // Déplacement l'image dans le dossier
+                $file->move(
+                    $firstEntity->getCoverUploadDirectory(),
+                    $fileName);
+            $firstEntity->setCover($fileName);        
+                        
             $em = $this->getDoctrine()->getManager();
             $em->persist($firstEntity);
             $em->flush();
 
+            //return $this->redirect($this->generateUrl('app_article_list'));
             return $this->redirectToRoute('firstentity_show', array('id' => $firstEntity->getId()));
         }
 

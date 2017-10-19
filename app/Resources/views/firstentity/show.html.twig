@@ -33,6 +33,10 @@
                 <th>Likes</th>
                 <td>{{ firstEntity.likes }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ asset(firstEntity.getCoverWebPath) }}"/></td>
+            </tr>
         </tbody>
     </table>
 

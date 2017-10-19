@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 class FirstEntityType extends AbstractType
 {
     /**
@@ -14,7 +16,8 @@ class FirstEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('createdAt')->add('updatedAt')->add('isEnabled')->add('likes')->add('save', SubmitType::class, array('label' => 'Create Post'));
+        $builder->add('title')->add('content')->add('createdAt')->add('updatedAt')->add('isEnabled')->add('likes')->add('file', FileType::class, array('label' => 'Image de cover (JPG ou PNG)'));
+        
     }
     
     /**
@@ -34,6 +37,5 @@ class FirstEntityType extends AbstractType
     {
         return 'appbundle_firstentity';
     }
-
-
+    
 }
